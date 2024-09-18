@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'index2.html' %}
+{% block content %}
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Car Rental Information</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    table, th, td {
+        border: 1px solid #ccc;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+<div style="margin-top:20px;">
+<h2>Customer Bookings</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Car Name</th>
+            <th>Brand Name</th>
+            <th>Price</th>
+            <th>Vehicle Type</th>
+            <th>phone number</th>
+            <th>Pickup Time</th>
+            <th>Drop-off Time</th>
+            <th>Pick-up Location</th>
+            <th>Drop-off Location</th>
+            <th>Pickup Date</th>
+            <th>Drop-off Date</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for i in data %}
+        <tr>
+            <td>{{i.carname}}</td>
+            <td>{{i.brandname}}</td>
+            <td>{{i.price}}</td>
+            <td>{{i.vehicletype}}</td>
+            <td>{{i.phonenumber}}</td>
+            <td>{{i.pickuptime}}</td>
+            <td>{{i.pickofftime}}</td>
+            <td>{{i.pickuplocation}}</td>
+            <td>{{i.dropofflocation}}</td>
+            <td>{{i.pickupdate}}</td>
+            <td>{{i.dropoffdate}}</td>
+            <td>
+                                <form action="{% url 'deletecustomermessage' deleid=i.id %}">
+                                <button type="submit" class="btn btn-primary me-2">Delete</button>
+                                </form>
+                            </td>
+        </tr>
+
+        <!-- Add more rows as needed -->
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<div style="margin-top:50px;">
+
+</div>
+</body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	{% if messages %}
+{% for i in messages %}
+    {% if i.tags == 'warning' %}
+        <script>
+            swal('{{i}}', '', 'warning');
+        </script>
+    {% elif i.tags == 'error' %}
+        <script>
+            swal('{{i}}', '', 'error');
+        </script>
+    {% elif i.tags == 'info' %}
+        <script>
+            swal('{{i}}', '', 'info');
+        </script>
+    {% else %}
+        <script>
+            swal('{{i}}', '', 'success');
+        </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</html>
+{% endblock %}

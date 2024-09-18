@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'index2.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-10 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">CATEGORIES</h4>
+                    <p class="card-description"> Add Categories </p>
+                    <form class="forms-sample" method="post" action="{% url 'savevehicle' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName1">Vehicle Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="Vehicle Name" name="vname">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Brand Name</label>
+                        <input type="text" class="form-control" id="1" placeholder="Brand Name" name="bname">
+                      </div>
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleInputEmail3">Email address</label>-->
+<!--                        <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleInputPassword4">Password</label>-->
+<!--                        <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Password">-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleSelectGender">Gender</label>-->
+<!--                        <select class="form-select" id="exampleSelectGender">-->
+<!--                          <option>Male</option>-->
+<!--                          <option>Female</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+                      <div class="form-group">
+                        <label for="exampleInputName1">Engine Capacity</label>
+                        <input type="text" class="form-control" id="2" placeholder="Engine Capacity" name="engcap">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Mileage</label>
+                        <input type="text" class="form-control" id="3" placeholder="Mileage" name="mile">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Fuel Capacity</label>
+                        <input type="text" class="form-control" id="4" placeholder="Fuel Capacity" name="fucap">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Max Power</label>
+                        <input type="text" class="form-control" id="5" placeholder="Max Power" name="mpower">
+                      </div>
+                      <div class="form-group">
+                         <label>Vehicle Type</label>
+                        <select class="form-control" name="vtype">
+                            <option>Select Type</option>
+                            {% for i in data %}
+                            <option>{{i.categoryname}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                      <div class="form-group">
+                      <label>Price</label>
+                      <input type="text" class="form-control" id="6" placeholder="Price" name="price">
+                    </div>
+                      <div class="form-group">
+                       <label>Vehicle Image</label>
+                       <input class="form-control" type="file" id="" multiple="" name="image">
+                   </div>
+<!--                      <div class="form-group">-->
+<!--                        <label>File upload</label>-->
+<!--                        <input type="file" name="img[]" class="file-upload-default">-->
+<!--                        <div class="input-group col-xs-12">-->
+<!--                          <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">-->
+<!--                          <span class="input-group-append">-->
+<!--                            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>-->
+<!--                          </span>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleInputCity1">City</label>-->
+<!--                        <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location">-->
+<!--                      </div>-->
+<!--                      <div class="form-group">-->
+<!--                        <label for="exampleTextarea1">Textarea</label>-->
+<!--                        <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>-->
+<!--                      </div>-->
+                      <button type="submit" class="btn btn-primary me-2">Submit</button>
+<!--                      <button class="btn btn-light">Cancel</button>-->
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	{% if messages %}
+{% for i in messages %}
+    {% if i.tags == 'warning' %}
+        <script>
+            swal('{{i}}', '', 'warning');
+        </script>
+    {% elif i.tags == 'error' %}
+        <script>
+            swal('{{i}}', '', 'error');
+        </script>
+    {% elif i.tags == 'info' %}
+        <script>
+            swal('{{i}}', '', 'info');
+        </script>
+    {% else %}
+        <script>
+            swal('{{i}}', '', 'success');
+        </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+</body>
+</html>
+{% endblock %}

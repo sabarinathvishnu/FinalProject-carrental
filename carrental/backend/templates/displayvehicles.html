@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'index2.html' %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-lg-10 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Category Table</h4>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Vehicle Name</th>
+                          <th>Brand Name</th>
+                          <th>Engine Capacity</th>
+                          <th>Mileage</th>
+                          <th>Fuel Capacity</th>
+                          <th>Max Power</th>
+                          <th>Vehicle Type</th>
+                          <th>Price</th>
+                          <th>Image</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in data %}
+                        <tr>
+                         <td>{{i.VehicleName}}</td>
+                         <td>{{i.BrandName}}</td>
+                         <td>{{i.Enginecapacity}}</td>
+                         <td>{{i.Mileage}}</td>
+                         <td>{{i.Fuelcapacity}}</td>
+                         <td>{{i.Maxpower}}</td>
+                         <td>{{i.VehicleType}}</td>
+                         <td>{{i.VehiclePrice}}</td>
+                            <td>
+                                <img src="{{i.VehicleImage.url}}">
+                            </td>
+                            <td>
+                                <form action="{% url 'editvehicle' editid=i.id %}">
+                                <button type="submit" class="btn btn-primary me-2">Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{% url 'deletevehicle' deleid=i.id %}">
+                                <button type="submit" class="btn btn-primary me-2">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+    {% for i in messages %}
+        {% if i.tags == 'warning' %}
+            <script>
+                swal('{{i}}', '', 'warning');
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+                swal('{{i}}', '', 'error');
+            </script>
+        {% elif i.tags == 'info' %}
+            <script>
+                swal('{{i}}', '', 'info');
+            </script>
+        {% else %}
+            <script>
+                swal('{{i}}', '', 'success');
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+</body>
+</html>
+{% endblock %}
